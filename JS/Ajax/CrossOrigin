@@ -1,0 +1,15 @@
+1. 通过Flash插件发送HTTP请求，这种方式可以绕过浏览器的安全限制，但必须安装Flash，并且跟Flash交互。不过Flash用起来麻烦，而且现在用得也越来越少了。
+
+2. 通过在同源域名下架设一个代理服务器来转发，JavaScript负责把请求发送到代理服务器, 代理服务器再把结果返回，这样就遵守了浏览器的同源策略。这种方式麻烦之处在于需要服务器端额外做开发。
+
+3. JSONP。它有个限制，只能用GET请求，并且要求返回JavaScript。这种方式跨域实际上是利用了浏览器允许跨域引用JavaScript资源。
+   
+   JSONP通常以函数调用的形式返回。例如，返回JavaScript内容如下：
+       
+       foo('data');
+       
+   这样一来，我们如果在页面中先准备好foo()函数，然后给页面动态加一个<script>节点，相当于动态读取外域的JavaScript资源，最后就等着接收回调了。
+   
+4. CORS， Cross-Origin Resource Sharing， 是HTML5规范定义的如何跨域访问资源。
+
+   利用响应头：Access-Control-Allow-Origin
