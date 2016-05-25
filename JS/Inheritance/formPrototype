@@ -4,3 +4,23 @@ function inherits(Child, Parent) {
     Child.prototype = new F();
     Child.prototype.constructor = Child;
 }
+
+function Parent(name){
+    this.name = name;
+    this.colors = ["red", "blue", "green"];
+}
+
+Parent.prototype.sayName = function(){
+    // do something.
+}
+
+function Child(name, age){
+    Parent.call(this, name);
+    this.age = age;
+}
+
+inherits(Child, Parent);
+
+Child.prototype.sayAge = function(){
+    // do something.
+}
