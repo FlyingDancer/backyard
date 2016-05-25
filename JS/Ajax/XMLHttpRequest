@@ -13,8 +13,24 @@ function fail(code) {
 var request;
 if (window.XMLHttpRequest) {
     request = new XMLHttpRequest();    // 新建XMLHttpRequest对象
+} else if(typeof activeXObject != "undefined") {
+        if(typeof arguments.callee.activeXString != "string") {
+            var versions = ["MSXML2.XMLHTTP.6.0", "MSXML2.XMLHTTP.3.0", "MSXML2.XMLHTTP"],
+                i,
+                len;
+            for(i = 0, len = version.length; i < len; i++) {
+                try{
+                    new ActiveXObject(versions[i]);
+                    arguments.callee.activeXString = versions[i];
+                    break;
+                } catch(ex){
+                    console.log("Can\'t find any proper activeXString.");
+                }
+            }
+        }
+    request = new ActiveXObject(arguments.callee.activeXString);    //低版本的IE，需要使用ActiveXObject对象
 } else {
-    request = new ActiveXObject('Microsoft.XMLHTTP');    //低版本的IE，需要使用ActiveXObject对象
+    throw new Error("No XHR object available.");
 }
 
 request.onreadystatechange = function () { // 状态发生变化时，函数被回调
