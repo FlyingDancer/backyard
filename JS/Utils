@@ -1,0 +1,18 @@
+/**
+ * Adding a new function 'fn' by the name of 'name' to caller's prototype, and can be called by chain.
+ * @param name
+ * @param fn
+ * @returns {Function}
+ *
+ * @usage
+ *      //Anim class, with methods created using a convenience method and chaining.
+ *      var Anim = function(){...};
+ *      Anim.method('start', function(){...})
+ *          .method('stop', function(){...});
+ */
+Function.prototype.method = function (name, fn) {
+    if(typeof name === "string" && typeof fn === "function"){
+        this.prototype[name] = fn;
+        return this;
+    }
+};
